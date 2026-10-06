@@ -1,0 +1,273 @@
+:root {
+  --blue: #1d5bd6;
+  --blue-hi: #2c69e3;
+  --sky: #8fd3ff;
+  --green: #12a150;
+  --green-hi: #1bae5c;
+  --yellow: #ffd23f;
+  --red: #ff4b2b;
+  --pink: #ff9ccf;
+  --cream: #f6efe3;
+  --paper: #fffaf2;
+  --ink: #1b1330;
+  --ink-soft: #5a5170;
+  --line: rgba(27, 19, 48, 0.1);
+  --navy: #0e1840;
+  --purple: #9a4fd0;
+
+  --f-display: 'Lalezar', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --f-hand: 'Aref Ruqaa', 'Lalezar', serif;
+  --f-body: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+
+  --gutter: clamp(20px, 5vw, 56px);
+  --wrap: 1200px;
+  --sec: clamp(110px, 15vw, 220px);
+  --frame: clamp(6px, 0.7vw, 10px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--f-body);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* faint print grain, like the reference posters */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.sec {
+  position: relative;
+  padding-block: var(--sec);
+}
+
+/* ---------- Type ---------- */
+.display {
+  font-family: var(--f-display);
+  font-weight: 400;
+  line-height: 1.15;
+}
+.h-xl {
+  font-size: clamp(3rem, 6.6vw, 6.6rem);
+  line-height: 1.06;
+}
+.h-lg {
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+}
+.lead {
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.9;
+  max-width: 38ch;
+}
+.kicker {
+  font-family: var(--f-hand);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+  line-height: 1.3;
+}
+
+/* red label behind a phrase, as in the reference */
+.tag-box {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.2em 0.04em;
+  color: #fff;
+  isolation: isolate;
+}
+.tag-bg {
+  position: absolute;
+  inset: 0.16em -0.02em 0.06em;
+  background: var(--red);
+  z-index: -1;
+  transform-origin: right center;
+}
+.tag-box.is-yellow {
+  color: var(--ink);
+}
+.tag-box.is-yellow .tag-bg {
+  background: var(--yellow);
+}
+
+/* ---------- Buttons: the red pill from the reference ---------- */
+.btn {
+  --bg: var(--red);
+  --fg: #fff;
+  --ring: rgba(255, 255, 255, 0.95);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 58px;
+  padding: 8px 28px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-display);
+  font-size: 1.25rem;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 6px var(--ring);
+  transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), filter 0.2s;
+}
+.btn::before,
+.btn::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  flex: none;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.05);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.is-yellow {
+  --bg: var(--yellow);
+  --fg: var(--ink);
+  --ring: var(--ink);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1.02rem;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.link-arrow:hover {
+  opacity: 1;
+}
+.link-arrow svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s;
+}
+.link-arrow:hover svg {
+  transform: translateY(3px);
+}
+
+/* yellow frame around illustrations, as in the reference */
+.frame {
+  border: var(--frame) solid var(--yellow);
+  overflow: hidden;
+  position: relative;
+}
+
+.sec-head {
+  display: grid;
+  gap: 16px;
+  max-width: 760px;
+  margin-bottom: clamp(56px, 8vw, 110px);
+}
+.sec-head.is-center {
+  margin-inline: auto;
+  text-align: center;
+  justify-items: center;
+}
+
+.dot-live {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.lottie {
+  display: inline-block;
+}
+.lottie svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
